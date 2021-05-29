@@ -1,0 +1,205 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="gymdatabaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="fee">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="member_id" Type="int" />
+          <Property Name="member_fee" Type="int" />
+          <Property Name="expected_fee" Type="int" />
+          <Property Name="user_id" Type="int" />
+          <Property Name="user_name" Type="varbinary" MaxLength="50" />
+          <Property Name="datesubmitted" Type="datetime" />
+        </EntityType>
+        <EntityType Name="tbl_attendence">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="memberid" Type="int" />
+          <Property Name="val" Type="int" />
+          <Property Name="today_date" Type="datetime" />
+          <Property Name="month" Type="int" />
+          <Property Name="year" Type="int" />
+          <Property Name="fee" Type="int" />
+          <Property Name="fee_paid" Type="bit" />
+          <Property Name="day" Type="int" />
+        </EntityType>
+        <EntityType Name="tbl_member">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="member_name" Type="varchar" MaxLength="200" />
+          <Property Name="member_uniqueId" Type="varchar" MaxLength="200" />
+          <Property Name="member_age" Type="varchar" MaxLength="200" />
+          <Property Name="member_cell" Type="varchar" MaxLength="200" />
+          <Property Name="member_type" Type="varchar" MaxLength="200" />
+          <Property Name="member_fee" Type="varchar" MaxLength="200" />
+          <Property Name="member_finger" Type="varbinary(max)" Nullable="false" />
+          <Property Name="on_vacc" Type="int" />
+          <Property Name="join_date" Type="datetime" />
+        </EntityType>
+        <EntityType Name="user">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" />
+          <Property Name="Password" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityContainer Name="gymdatabaseModelStoreContainer">
+          <EntitySet Name="fee" EntityType="Self.fee" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_attendence" EntityType="Self.tbl_attendence" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_member" EntityType="Self.tbl_member" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="user" EntityType="Self.user" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="gymdatabaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="fee">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="member_id" Type="Int32" />
+          <Property Name="member_fee" Type="Int32" />
+          <Property Name="expected_fee" Type="Int32" />
+          <Property Name="user_id" Type="Int32" />
+          <Property Name="user_name" Type="Binary" MaxLength="50" FixedLength="false" />
+          <Property Name="datesubmitted" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="tbl_attendence">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="memberid" Type="Int32" />
+          <Property Name="val" Type="Int32" />
+          <Property Name="today_date" Type="DateTime" Precision="3" />
+          <Property Name="month" Type="Int32" />
+          <Property Name="year" Type="Int32" />
+          <Property Name="fee" Type="Int32" />
+          <Property Name="fee_paid" Type="Boolean" />
+          <Property Name="day" Type="Int32" />
+        </EntityType>
+        <EntityType Name="tbl_member">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="member_name" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="member_uniqueId" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="member_age" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="member_cell" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="member_type" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="member_fee" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="member_finger" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
+          <Property Name="on_vacc" Type="Int32" />
+          <Property Name="join_date" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="user">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityContainer Name="gymdatabaseEntities2" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="fees" EntityType="Self.fee" />
+          <EntitySet Name="tbl_attendence" EntityType="Self.tbl_attendence" />
+          <EntitySet Name="tbl_member" EntityType="Self.tbl_member" />
+          <EntitySet Name="users" EntityType="Self.user" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="gymdatabaseModelStoreContainer" CdmEntityContainer="gymdatabaseEntities2">
+          <EntitySetMapping Name="fees">
+            <EntityTypeMapping TypeName="gymdatabaseModel.fee">
+              <MappingFragment StoreEntitySet="fee">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="member_id" ColumnName="member_id" />
+                <ScalarProperty Name="member_fee" ColumnName="member_fee" />
+                <ScalarProperty Name="expected_fee" ColumnName="expected_fee" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="user_name" ColumnName="user_name" />
+                <ScalarProperty Name="datesubmitted" ColumnName="datesubmitted" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_attendence">
+            <EntityTypeMapping TypeName="gymdatabaseModel.tbl_attendence">
+              <MappingFragment StoreEntitySet="tbl_attendence">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="memberid" ColumnName="memberid" />
+                <ScalarProperty Name="val" ColumnName="val" />
+                <ScalarProperty Name="today_date" ColumnName="today_date" />
+                <ScalarProperty Name="month" ColumnName="month" />
+                <ScalarProperty Name="year" ColumnName="year" />
+                <ScalarProperty Name="fee" ColumnName="fee" />
+                <ScalarProperty Name="fee_paid" ColumnName="fee_paid" />
+                <ScalarProperty Name="day" ColumnName="day" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_member">
+            <EntityTypeMapping TypeName="gymdatabaseModel.tbl_member">
+              <MappingFragment StoreEntitySet="tbl_member">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="member_name" ColumnName="member_name" />
+                <ScalarProperty Name="member_uniqueId" ColumnName="member_uniqueId" />
+                <ScalarProperty Name="member_age" ColumnName="member_age" />
+                <ScalarProperty Name="member_cell" ColumnName="member_cell" />
+                <ScalarProperty Name="member_type" ColumnName="member_type" />
+                <ScalarProperty Name="member_fee" ColumnName="member_fee" />
+                <ScalarProperty Name="member_finger" ColumnName="member_finger" />
+                <ScalarProperty Name="on_vacc" ColumnName="on_vacc" />
+                <ScalarProperty Name="join_date" ColumnName="join_date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="users">
+            <EntityTypeMapping TypeName="gymdatabaseModel.user">
+              <MappingFragment StoreEntitySet="user">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
