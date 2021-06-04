@@ -21,5 +21,6 @@ namespace Enrollment
         public Nullable<int> user_id { get; set; }
         public byte[] user_name { get; set; }
         public Nullable<System.DateTime> datesubmitted { get; set; }
+        public Nullable<bool> paid { get; set; }
     }
 }

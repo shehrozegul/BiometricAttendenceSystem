@@ -44,9 +44,11 @@ namespace Enrollment
             this.feeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.button2 = new System.Windows.Forms.Button();
+            this.button3 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
@@ -55,7 +57,7 @@ namespace Enrollment
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(322, 199);
+            this.button1.Location = new System.Drawing.Point(254, 188);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(106, 30);
             this.button1.TabIndex = 0;
@@ -144,19 +146,19 @@ namespace Enrollment
             // monthlyToolStripMenuItem
             // 
             this.monthlyToolStripMenuItem.Name = "monthlyToolStripMenuItem";
-            this.monthlyToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.monthlyToolStripMenuItem.Size = new System.Drawing.Size(119, 22);
             this.monthlyToolStripMenuItem.Text = "Monthly";
             // 
             // dailyToolStripMenuItem
             // 
             this.dailyToolStripMenuItem.Name = "dailyToolStripMenuItem";
-            this.dailyToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.dailyToolStripMenuItem.Size = new System.Drawing.Size(119, 22);
             this.dailyToolStripMenuItem.Text = "Daily";
             // 
             // feeToolStripMenuItem
             // 
             this.feeToolStripMenuItem.Name = "feeToolStripMenuItem";
-            this.feeToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.feeToolStripMenuItem.Size = new System.Drawing.Size(119, 22);
             this.feeToolStripMenuItem.Text = "Fee";
             // 
             // dataGridView2
@@ -178,15 +180,15 @@ namespace Enrollment
             this.panel1.Size = new System.Drawing.Size(771, 509);
             this.panel1.TabIndex = 9;
             // 
-            // label4
+            // label6
             // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("MV Boli", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(35, 28);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(169, 31);
-            this.label4.TabIndex = 9;
-            this.label4.Text = "Daily Reports";
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("MV Boli", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Location = new System.Drawing.Point(203, 106);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(123, 21);
+            this.label6.TabIndex = 11;
+            this.label6.Text = "Member Count";
             // 
             // label5
             // 
@@ -198,21 +200,42 @@ namespace Enrollment
             this.label5.TabIndex = 10;
             this.label5.Text = "Member Count";
             // 
-            // label6
+            // label4
             // 
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("MV Boli", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(203, 106);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(123, 21);
-            this.label6.TabIndex = 11;
-            this.label6.Text = "Member Count";
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("MV Boli", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(35, 28);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(169, 31);
+            this.label4.TabIndex = 9;
+            this.label4.Text = "Daily Reports";
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(185, 237);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(106, 30);
+            this.button2.TabIndex = 10;
+            this.button2.Text = "Update";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(322, 237);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(106, 30);
+            this.button3.TabIndex = 11;
+            this.button3.Text = "Delete";
+            this.button3.UseVisualStyleBackColor = true;
             // 
             // UserManagement
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1394, 631);
+            this.Controls.Add(this.button3);
+            this.Controls.Add(this.button2);
             this.Controls.Add(this.textBox2);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.label3);
@@ -257,5 +280,7 @@ namespace Enrollment
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button button3;
     }
 }

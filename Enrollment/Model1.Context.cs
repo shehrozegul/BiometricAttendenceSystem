@@ -13,10 +13,10 @@ namespace Enrollment
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class gymdatabaseEntities2 : DbContext
+    public partial class gymdatabaseEntities1 : DbContext
     {
-        public gymdatabaseEntities2()
-            : base("name=gymdatabaseEntities2")
+        public gymdatabaseEntities1()
+            : base("name=gymdatabaseEntities1")
         {
         }
     

@@ -13,7 +13,8 @@ namespace Enrollment
 {
     public partial class UserManagement : Form
     {
-        private gymdatabaseEntities2 memdatabase;
+        private gymdatabaseEntities1 memdatabase;
+        public int memId { get; set; }
         SqlConnection con;
         public UserManagement()
         {
@@ -73,10 +74,28 @@ namespace Enrollment
                 throw;
             }
         }
+        private void update()
+        {
+            var updatequery = memdatabase.users.Where(x => x.Id == memId).FirstOrDefault();
+            updatequery.Name = textBox1.Text;
+            updatequery.Password = textBox2.Text;
+            memdatabase.SaveChanges();
+        }
+        private void delete()
+        {
+            var deletequery = memdatabase.users.Where(x => x.Id == memId).FirstOrDefault();
+            memdatabase.users.Remove(deletequery);
+            memdatabase.SaveChanges();
+        }
+        private void clear()
+        {
+            textBox1.Text = "";
+            textBox2.Text = "";
+        }
 
         private void UserManagement_Load(object sender, EventArgs e)
         {
-            memdatabase = new gymdatabaseEntities2();
+            memdatabase = new gymdatabaseEntities1();
             LoadUserList();
         }
 
@@ -88,6 +107,27 @@ namespace Enrollment
         private void reportsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             panel1.Show();
+        }
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+            var id = Convert.ToInt32(dataGridView1.CurrentRow.Cells[0].Value);
+            memId = id;
+            var findmem = memdatabase.users.Where(x => x.Id == id).FirstOrDefault();
+            textBox1.Text = findmem.Name;
+            textBox2.Text = findmem.Password;
+
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            update();
+            clear();
+        }
+        private void button3_Click(object sender, EventArgs e)
+        {
+            delete();
+            clear();
         }
     }
 }

@@ -15,6 +15,7 @@ namespace Enrollment
 	{
 		public CaptureForm()
 		{
+			
 			InitializeComponent();
 		}
 

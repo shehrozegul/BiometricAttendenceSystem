@@ -30,7 +30,8 @@ namespace Enrollment
         private Button button1;
         private Label label4;
         private Label label3;
-        private gymdatabaseEntities2 memdatabase;
+        private PrintDialog printDialog1;
+        private gymdatabaseEntities1 memdatabase;
         
         public void Verify(DPFP.Template template)
 		{
@@ -108,6 +109,7 @@ namespace Enrollment
                             }
                             else
                             {
+
                                 var count = memdatabase.tbl_attendence.Where(x=>x.memberid==mem.Id&&x.day.ToString()==todaydate&&x.month.ToString()==thismonth&&x.year.ToString()==year).FirstOrDefault();
                                 var getMember = memdatabase.tbl_member.Where(x => x.Id == mem.Id).FirstOrDefault();
                                 var getfee = memdatabase.fees.Where(x => x.member_id == mem.Id).FirstOrDefault();
@@ -200,7 +202,8 @@ namespace Enrollment
                                     {
                                         min = true;
                                     }
-                                    string query = "insert into tbl_attendence(memberid,val,today_date,month,year,fee,fee_paid,day)values((select Id from tbl_member where Id='" + mem.Id + "'),'" + Convert.ToInt32(val) + "','" + longTodayDate + "','" + Convert.ToInt32(thismonth) + "','" + Convert.ToInt32(year) + "','" + Convert.ToInt32(mem.member_fee) + "','" + min + "','" + Convert.ToInt32(todaydate) + "')";
+                                    string query = "insert into tbl_attendence(memberid,uniqueId,val,today_date,month,year,fee,fee_paid,day)values((select Id from tbl_member where Id='" + mem.Id + "'),'" + mem.member_uniqueId + "','" + Convert.ToInt32(val) + "','" + longTodayDate + "','" + Convert.ToInt32(thismonth) + "','" + Convert.ToInt32(year) + "','" + Convert.ToInt32(mem.member_fee) + "','" + min + "','" + Convert.ToInt32(todaydate) + "')";
+                                    
                                     SqlCommand cmd = new SqlCommand(query, con);
                                     con.Open();
                                     int a = cmd.ExecuteNonQuery();
@@ -248,7 +251,7 @@ namespace Enrollment
             if (diff==0)
             {
                 var tempfee = memdatabase.tbl_attendence.Where(x => x.Id == memid).FirstOrDefault();
-                tempfee.fee_paid = false;
+                tempfee.fee_paid ="Unpaid";
                 memdatabase.SaveChanges();
                 button1.Show();
                 return 0;
@@ -312,7 +315,7 @@ namespace Enrollment
 		}
         public VerificationForm()
         {
-            memdatabase = new gymdatabaseEntities2();
+            memdatabase = new gymdatabaseEntities1();
             InitializeComponent();
         }
 		private DPFP.Template Template;
@@ -321,12 +324,13 @@ namespace Enrollment
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
+            this.printDialog1 = new System.Windows.Forms.PrintDialog();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
@@ -340,8 +344,28 @@ namespace Enrollment
             this.panel1.Controls.Add(this.label2);
             this.panel1.Location = new System.Drawing.Point(536, 12);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(585, 372);
+            this.panel1.Size = new System.Drawing.Size(690, 372);
             this.panel1.TabIndex = 7;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(152, 29);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(43, 18);
+            this.label4.TabIndex = 5;
+            this.label4.Text = "count";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(3, 29);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(102, 18);
+            this.label3.TabIndex = 4;
+            this.label3.Text = "Member Count";
             // 
             // button1
             // 
@@ -351,13 +375,14 @@ namespace Enrollment
             this.button1.TabIndex = 3;
             this.button1.Text = "Add Fee";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // dataGridView1
             // 
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Location = new System.Drawing.Point(0, 108);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(579, 261);
+            this.dataGridView1.Size = new System.Drawing.Size(687, 261);
             this.dataGridView1.TabIndex = 2;
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
@@ -381,30 +406,14 @@ namespace Enrollment
             this.label1.TabIndex = 0;
             this.label1.Text = "Verification Type";
             // 
-            // label3
+            // printDialog1
             // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(3, 29);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(102, 18);
-            this.label3.TabIndex = 4;
-            this.label3.Text = "Member Count";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(152, 29);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(43, 18);
-            this.label4.TabIndex = 5;
-            this.label4.Text = "count";
+            this.printDialog1.UseEXDialog = true;
             // 
             // VerificationForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.ClientSize = new System.Drawing.Size(1174, 532);
+            this.ClientSize = new System.Drawing.Size(1251, 532);
             this.Controls.Add(this.panel1);
             this.Name = "VerificationForm";
             this.Load += new System.EventHandler(this.VerificationForm_Load);
@@ -427,10 +436,22 @@ namespace Enrollment
                 string year = DateTime.Now.Year.ToString();
                 int countquery = memdatabase.tbl_attendence.Where(x => x.day.ToString() == todaydate && x.month.ToString() == thismonth && x.year.ToString() == year).ToList().Count();
                 var member = memdatabase.tbl_attendence.Where(x=>x.day.ToString() == todaydate && x.month.ToString() == thismonth && x.year.ToString() == year).OrderByDescending(x => x.today_date).ToList();
+                var member1 = from mem in memdatabase.tbl_attendence
+                              where mem.day.ToString() == todaydate && mem.month.ToString() == thismonth && mem.year.ToString() == year orderby mem.today_date descending
+                              select new {
+                              ID=mem.Id,
+                              MemberId=mem.memberid,
+                              Name=mem.name,
+                              UniqueId=mem.uniqueId,
+                              Fee=mem.fee,
+                              Fee_Paid=mem.fee_paid,
+                              NexFeeDate=mem.fee_date
+                              };
+
                 label4.Invoke(new Action(() => { label4.Text = Convert.ToString(countquery); }));
                 if (member != null)
                 {
-                    dataGridView1.Invoke(new Action(() => { dataGridView1.DataSource = member; }));
+                    dataGridView1.Invoke(new Action(() => { dataGridView1.DataSource = member1.ToList(); }));
                 }
             }
             catch (Exception)
@@ -453,6 +474,16 @@ namespace Enrollment
         }
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void printDocument1_PrintPage(object sender, System.Drawing.Printing.PrintPageEventArgs e)
+        {
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
         {
 
         }

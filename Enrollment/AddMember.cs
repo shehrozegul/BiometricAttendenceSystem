@@ -13,8 +13,9 @@ namespace Enrollment
 {
     public partial class AddMember : Form
     {
-        private gymdatabaseEntities2 memdatabase;
+        private gymdatabaseEntities1 memdatabase;
         private DPFP.Template Template;
+        public int memId { get; set; }
         SqlConnection con;
         public AddMember()
         {
@@ -49,17 +50,22 @@ namespace Enrollment
         private void button2_Click(object sender, EventArgs e)
         {
 
-            try { 
+            try {
 
+                var lastentry = memdatabase.tbl_member.ToList().Select(x=>x.Id).LastOrDefault();
             byte[] fingerbytes = Template.Bytes;
                 var temp = comboBox1.SelectedItem;
                 var tabindex = comboBox1.SelectedIndex;
+                var charid = textBox1.Text.ToUpper().Split(' ');
+                var firstchar=charid[0].Substring(0, 1);
+                var lastchar=charid[1].Substring(0, 1);
+                var final = firstchar + lastchar + Convert.ToString((lastentry+1));
                 tbl_member tblmem = new tbl_member
                 {
                     member_name = textBox1.Text,
                     member_age = textBox2.Text,
                     member_cell = textBox3.Text,
-                    member_uniqueId = textBox4.Text,
+                    member_uniqueId = final,
                     member_type = temp.ToString(),
                     member_fee = textBox5.Text,
                     on_vacc = 0,
@@ -78,8 +84,11 @@ namespace Enrollment
                 memdatabase.SaveChanges();
                 Initiliaze();
             Template = null;
+                reset();
             MessageBox.Show("Saved");
+
             }
+
             catch(Exception ex)
             {
                 MessageBox.Show(ex.Message);
@@ -100,7 +109,14 @@ namespace Enrollment
             con.Close();
             */
         }
-
+        private void reset()
+        {
+            textBox1.Text = "";
+            textBox2.Text = "";
+            textBox3.Text = "";
+            textBox5.Text = "";
+            
+        }
         private void Initiliaze()
         {
             var member = from mem in memdatabase.tbl_member
@@ -108,6 +124,7 @@ namespace Enrollment
                          {
                              Id = mem.Id,
                              Name = mem.member_name,
+                             UniqueId=mem.member_uniqueId,
                              Fee = mem.member_fee,
                              Type = mem.member_type,
                              Age = mem.member_age,
@@ -130,7 +147,7 @@ namespace Enrollment
         private void AddMember_Load(object sender, EventArgs e)
         {
             button3.Hide();
-            memdatabase = new gymdatabaseEntities2();
+            memdatabase = new gymdatabaseEntities1();
             Initiliaze();
         }
 
@@ -139,6 +156,34 @@ namespace Enrollment
 
         }
 
+        private void update()
+        {
+            var updatequery =memdatabase.tbl_member.Where(x=>x.Id==memId).FirstOrDefault();
+            var lastentry = memdatabase.tbl_member.ToList().Select(x => x.Id).LastOrDefault();
+            var temp = comboBox1.SelectedItem;
+            var tabindex = comboBox1.SelectedIndex;
+            var charid = textBox1.Text.ToUpper().Split(' ');
+            var firstchar = charid[0].Substring(0, 1);
+            var lastchar = charid[1].Substring(0, 1);
+            var final = firstchar + lastchar + Convert.ToString((lastentry + 1));
+            updatequery.member_name = textBox1.Text;
+            updatequery.member_age = textBox2.Text;
+            updatequery.member_cell = textBox3.Text;
+            updatequery.member_uniqueId = final;
+            updatequery.member_type = temp.ToString();
+            updatequery.member_fee = textBox5.Text;
+            updatequery.on_vacc = 0;
+            updatequery.join_date = dateTimePicker2.Value;
+            memdatabase.SaveChanges();
+            MessageBox.Show("Updated");
+        }
+        private void delete()
+        {
+            var deletequery = memdatabase.tbl_member.Where(x => x.Id == memId).FirstOrDefault();
+            memdatabase.tbl_member.Remove(deletequery);
+            memdatabase.SaveChanges();
+            MessageBox.Show("Deleted");
+        }
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             var temp = comboBox1.SelectedItem;
@@ -156,6 +201,47 @@ namespace Enrollment
                 textBox5.Text = "1500";
             }
             
+        }
+        private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            string str = dataGridView1.CurrentRow.Cells[0].Value.ToString() + "\n" + dataGridView1.CurrentRow.Cells[1].Value.ToString();
+            MessageBox.Show(str);
+            //customerId = dataGridView1.CurrentRow.Cells[0].Value.ToString();
+            //contactName = dataGridView1.CurrentRow.Cells[1].Value.ToString();
+            //country = dataGridView1.CurrentRow.Cells[2].Value.ToString();
+            //Popup pop = new Popup();
+            //pop.Show();
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+            var id =Convert.ToInt32( dataGridView1.CurrentRow.Cells[0].Value);
+            memId = id;
+            var findmem = memdatabase.tbl_member.Where(x => x.Id == id).FirstOrDefault();
+            textBox1.Text =findmem.member_name ;
+            textBox2.Text = findmem.member_age;
+            textBox3.Text = findmem.member_age;
+            dateTimePicker2.Value = (DateTime)findmem.join_date;
+            
+        }
+
+        //update
+        private void button4_Click(object sender, EventArgs e)
+        {
+            update();
+            reset();
+        }
+        //delete
+        private void button5_Click(object sender, EventArgs e)
+        {
+            delete();
+            reset();
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            DGVPrinter printer = new DGVPrinter();
         }
     }
 }

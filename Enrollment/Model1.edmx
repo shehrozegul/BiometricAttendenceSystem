@@ -16,6 +16,7 @@
           <Property Name="user_id" Type="int" />
           <Property Name="user_name" Type="varbinary" MaxLength="50" />
           <Property Name="datesubmitted" Type="datetime" />
+          <Property Name="paid" Type="bit" />
         </EntityType>
         <EntityType Name="tbl_attendence">
           <Key>
@@ -23,12 +24,15 @@
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="memberid" Type="int" />
+          <Property Name="uniqueId" Type="varchar" MaxLength="50" />
+          <Property Name="name" Type="varchar" MaxLength="50" />
+          <Property Name="fee_paid" Type="varchar" MaxLength="50" />
+          <Property Name="fee_date" Type="datetime" />
           <Property Name="val" Type="int" />
           <Property Name="today_date" Type="datetime" />
           <Property Name="month" Type="int" />
           <Property Name="year" Type="int" />
           <Property Name="fee" Type="int" />
-          <Property Name="fee_paid" Type="bit" />
           <Property Name="day" Type="int" />
         </EntityType>
         <EntityType Name="tbl_member">
@@ -76,6 +80,7 @@
           <Property Name="user_id" Type="Int32" />
           <Property Name="user_name" Type="Binary" MaxLength="50" FixedLength="false" />
           <Property Name="datesubmitted" Type="DateTime" Precision="3" />
+          <Property Name="paid" Type="Boolean" />
         </EntityType>
         <EntityType Name="tbl_attendence">
           <Key>
@@ -83,12 +88,15 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="memberid" Type="Int32" />
+          <Property Name="uniqueId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="fee_paid" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="fee_date" Type="DateTime" Precision="3" />
           <Property Name="val" Type="Int32" />
           <Property Name="today_date" Type="DateTime" Precision="3" />
           <Property Name="month" Type="Int32" />
           <Property Name="year" Type="Int32" />
           <Property Name="fee" Type="Int32" />
-          <Property Name="fee_paid" Type="Boolean" />
           <Property Name="day" Type="Int32" />
         </EntityType>
         <EntityType Name="tbl_member">
@@ -114,7 +122,7 @@
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
-        <EntityContainer Name="gymdatabaseEntities2" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="gymdatabaseEntities1" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="fees" EntityType="Self.fee" />
           <EntitySet Name="tbl_attendence" EntityType="Self.tbl_attendence" />
           <EntitySet Name="tbl_member" EntityType="Self.tbl_member" />
@@ -125,7 +133,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="gymdatabaseModelStoreContainer" CdmEntityContainer="gymdatabaseEntities2">
+        <EntityContainerMapping StorageEntityContainer="gymdatabaseModelStoreContainer" CdmEntityContainer="gymdatabaseEntities1">
           <EntitySetMapping Name="fees">
             <EntityTypeMapping TypeName="gymdatabaseModel.fee">
               <MappingFragment StoreEntitySet="fee">
@@ -136,6 +144,7 @@
                 <ScalarProperty Name="user_id" ColumnName="user_id" />
                 <ScalarProperty Name="user_name" ColumnName="user_name" />
                 <ScalarProperty Name="datesubmitted" ColumnName="datesubmitted" />
+                <ScalarProperty Name="paid" ColumnName="paid" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -144,12 +153,15 @@
               <MappingFragment StoreEntitySet="tbl_attendence">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="memberid" ColumnName="memberid" />
+                <ScalarProperty Name="uniqueId" ColumnName="uniqueId" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="fee_paid" ColumnName="fee_paid" />
+                <ScalarProperty Name="fee_date" ColumnName="fee_date" />
                 <ScalarProperty Name="val" ColumnName="val" />
                 <ScalarProperty Name="today_date" ColumnName="today_date" />
                 <ScalarProperty Name="month" ColumnName="month" />
                 <ScalarProperty Name="year" ColumnName="year" />
                 <ScalarProperty Name="fee" ColumnName="fee" />
-                <ScalarProperty Name="fee_paid" ColumnName="fee_paid" />
                 <ScalarProperty Name="day" ColumnName="day" />
               </MappingFragment>
             </EntityTypeMapping>

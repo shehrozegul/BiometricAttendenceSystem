@@ -16,12 +16,15 @@ namespace Enrollment
     {
         public int Id { get; set; }
         public Nullable<int> memberid { get; set; }
+        public string uniqueId { get; set; }
+        public string name { get; set; }
+        public string fee_paid { get; set; }
+        public Nullable<System.DateTime> fee_date { get; set; }
         public Nullable<int> val { get; set; }
         public Nullable<System.DateTime> today_date { get; set; }
         public Nullable<int> month { get; set; }
         public Nullable<int> year { get; set; }
         public Nullable<int> fee { get; set; }
-        public Nullable<bool> fee_paid { get; set; }
         public Nullable<int> day { get; set; }
     }
 }
